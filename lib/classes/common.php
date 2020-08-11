@@ -200,6 +200,12 @@ class SagepayCommon
         $query += self::_setAuxValue($query, 'Language', $settings->getLanguage());
 
 
+        // Add check for state for US addresses only.
+        if ($settings->getCurrency() == 'JPY')
+        {
+            $query['Amount'] = number_format($basket->getAmount(), 0);
+        }
+
 
         // Add check for state for US addresses only.
         if ($billingAddress->country == 'US')
